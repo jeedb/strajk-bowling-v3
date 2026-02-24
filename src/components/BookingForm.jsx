@@ -9,13 +9,21 @@ function BookingForm() {
     const [lanes, setLanes] = useState(1);
     const [shoes, setShoes] = useState([]); //array
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+
     const total = people * 120 + lanes * 100;
+
+
 
     useEffect(() => {
         setShoes((prevShoes) => prevShoes.slice(0, people));
     }, [people]);
 
     const handleClick = async () => {
+        setIsLoading(true);
+        setError('');
+
         try {
             const bookingData = {
                 date,
@@ -29,6 +37,9 @@ function BookingForm() {
 
             console.log('Booking success:', result);
         }   catch (error) {
+            setError('Booking failed. Please try again.');
+       }   finally {
+            setIsLoading(false);
             console.log('Booking failed:', error.message);
         }
     };
@@ -88,10 +99,14 @@ function BookingForm() {
 
         ))}
 
+        {isLoading && <p>Loading...</p>}
+
         <button
         onClick={handleClick}>STRIIIIIKE!
         </button>
         <p>Temporary total: {total} kr</p>
+
+        {error && <p style={{ color: 'red'}}>{error}</p>}
     </div>
   )
 }
