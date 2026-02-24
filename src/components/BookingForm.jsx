@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { createBooking } from '../services/api';
 
 function BookingForm() {
 
@@ -14,9 +15,27 @@ function BookingForm() {
         setShoes((prevShoes) => prevShoes.slice(0, people));
     }, [people]);
 
-    const handleClick = () => {
-        console.log({ date, time, people, lanes, shoes });
+    const handleClick = async () => {
+        try {
+            const bookingData = {
+                date,
+                time,
+                people,
+                lanes,
+                shoes,
+            };
+
+            const result = await createBooking(bookingData);
+
+            console.log('Booking success:', result);
+        }   catch (error) {
+            console.log('Booking failed:', error.message);
+        }
     };
+
+    // const handleClick = () => {
+    //     console.log({ date, time, people, lanes, shoes });
+    // };
 
 
   return (
