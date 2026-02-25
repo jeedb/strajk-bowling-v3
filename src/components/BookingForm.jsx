@@ -26,23 +26,31 @@ function BookingForm() {
         setIsLoading(true);
         setError('');
 
+        if (!date || !time) {
+            setError('Du måste välja datum och tid');
+            setIsLoading(false);
+            return;
+        }
+
+        if (shoes.length !== people || shoes.includes('')) {
+            setError('Välj skostorlek för alla spelare');
+            setIsLoading(false)
+            return;
+        }
+
         try {
             const bookingData = {
-                date,
-                time,
-                people,
+                when: `${date}T${time}`,
                 lanes,
-                shoes,
+                people,
+                shoes: shoes.map(Number),
             };
 
             const result = await createBooking(bookingData);
+            console.log('API RESULT', result)
 
             navigate('/confirmation', { 
-                state: {
-                    ...result.bookingDetails,
-                    date,
-                    time,
-                },
+                state: result.bookingDetails
             });
             
         }   catch (error) {
@@ -75,6 +83,7 @@ function BookingForm() {
         readOnly
         onClick={() => document.getElementById('real-date').showPicker()}
         /> 
+
         <input 
         id="real-date"
         type='date'

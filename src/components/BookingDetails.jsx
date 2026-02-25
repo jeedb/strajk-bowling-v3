@@ -2,15 +2,28 @@ import React from 'react'
 
 function BookingDetails({ booking }) {
 
-  const formattedDate = new Date(booking.date).toLocaleDateString('sv-SE', {
+  if (!booking || !booking.when) {
+    return <p>No booking data</p>;
+  }
+
+console.log(booking)
+
+  const dateObj = new Date(booking.when);
+
+  const formattedDate = dateObj.toLocaleDateString('sv-SE', {
     day: 'numeric',
     month: 'short',
+  });
+
+  const formattedTime = dateObj.toLocaleTimeString('sv-SE', {
+    hour: '2-digit',
+    minute: '2-digit',
   });
 
   return (
     <div>
         <p>Date: {formattedDate}</p>
-        <p>Time: {booking.time}</p>
+        <p>Time: {formattedTime}</p>
         <p>People: {booking.people}</p>
         <p>Lanes: {booking.lanes}</p>
         <p>Booking number: {booking.bookingId}</p>
