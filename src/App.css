@@ -1,0 +1,43 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 2rem;
+    background-color: #FFF4F1;
+    font-family: 'Bebas Neue';
+}
+
+.loading-container {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    width: 35vw;
+    max-width: 140px;
+    height: auto;
+    margin-bottom: 24px;
+}
+
+.loading-strajk {
+    color: #ec315a;
+    font-size: clamp(42px, 14vw, 80px); /* min, ideal, max*/
+    letter-spacing: 2px;
+}
+
+.loading-bowling {
+    color: #340d6d;
+    font-size: clamp(14px, 4vw, 20px);
+    font-family: 'work sans';
+    letter-spacing: 6px;
+    margin-top: 10px;
+}
