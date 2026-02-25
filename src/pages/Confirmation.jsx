@@ -14,9 +14,8 @@ function Confirmation() {
 
   return (
     <>
-      <Nav />
         <div>
-          <h1>Confirmation</h1>
+          <h1>SEE YOU SOON!</h1>
           <BookingDetails booking={bookingData} />
         </div>
     </>

@@ -27,7 +27,7 @@ function BookingForm() {
         setError('');
 
         if (!date || !time) {
-            setError('Du måste välja datum och tid');
+            setError('Du måste välja datum & tid');
             setIsLoading(false);
             return;
         }
@@ -47,7 +47,6 @@ function BookingForm() {
             };
 
             const result = await createBooking(bookingData);
-            console.log('API RESULT', result)
 
             navigate('/confirmation', { 
                 state: result.bookingDetails
@@ -64,17 +63,25 @@ function BookingForm() {
     const formattedDate = date && new Date (date).toLocaleDateString('sv-SE', {
         day: 'numeric',
         month: 'short',
-    });
+    })
+        .replace('.', '');
+
+    // Tiden visas i dropdown med 30 min intervall. 
+
+    const generateTimes = () => {
+        const times = [];
+
+        for (let hour = 12; hour <= 22; hour++) {
+            times.push(`${hour.toString().padStart(2, '0')}:00`);
+            times.push(`${hour.toString().padStart(2, '0')}:30`);
+        }
+        return times;
+    };
+
+    const timeOptions = generateTimes();
 
   return (
     <div>
-        {/* <label>Date</label>
-        <input
-        type="date"
-        value={date} 
-        onChange={(e) => setDate(e.target.value)}
-        /> */}
-
         <label>Date</label>
         <input 
         type="text"
@@ -96,13 +103,41 @@ function BookingForm() {
         }}
          />   
 
+         <label>Time</label>
+         <select
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            >
+                <option value="">Select time</option>
+                {timeOptions.map((t) => (
+                    <option key={t} value={t}>
+                        {t.replace(':', '.')}
+                    </option>
+                ))}
+            </select>
+{/* 
         <label>Time</label>
         <input 
-        type="time"
-        value={time}
-        onChange={(e) => setTime(e.target.value)} 
+        type="text"
+        value={time ? time.replace(':', '.') : ''}
+        placeholder='Select time'
+        readOnly
+        onClick={() => document.getElementById('real-time').showPicker()}
         />
 
+        <input 
+        id='real-time'
+        type="time"
+        value={time} 
+        step='1800' //30 min = 1800
+        onChange={(e) => setTime(e.target.value)} 
+         style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+        }}
+        />  */}
+        
         <label>Number of awsome bowlers</label>
         <input 
         type="number"

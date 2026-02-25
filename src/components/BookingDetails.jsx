@@ -13,12 +13,15 @@ console.log(booking)
   const formattedDate = dateObj.toLocaleDateString('sv-SE', {
     day: 'numeric',
     month: 'short',
-  });
+  })
+    .replace('.', '');
 
   const formattedTime = dateObj.toLocaleTimeString('sv-SE', {
     hour: '2-digit',
     minute: '2-digit',
-  });
+  })
+    .replace(':', '.');
+
 
   return (
     <div>

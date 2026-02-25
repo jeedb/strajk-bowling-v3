@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 
 function Nav() {
 
-    const [isOpen, setOpen] =useState(false); 
+    const [isOpen, setIsOpen] = useState(false); 
 
     return (
-    <nav>
-        <button
+    <nav className='nav'>
+        <button className='nav-menu'
             onClick={() => setIsOpen(!isOpen)}>
                 &#9776;
         </button>
@@ -16,6 +17,11 @@ function Nav() {
             <div>
                 <Link to='/' onClick={() => setIsOpen(false)}>
                 Booking
+                </Link>
+                <Link to='/confirmation'
+                onClick={() => setIsOpen (false)}
+                >
+                    Confirmation
                 </Link>
             </div>
         )}
