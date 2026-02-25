@@ -8,7 +8,7 @@ function Confirmation() {
     const bookingData = location.state;
 
     if (!bookingData) {
-        return <p>No Booking found.</p>;
+        return <p>No booking found.</p>;
     }
 
   return (

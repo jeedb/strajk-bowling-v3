@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { createBooking } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 function BookingForm() {
+
+    const navigate = useNavigate();
 
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
@@ -12,13 +15,12 @@ function BookingForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
+    useEffect(() => {
+    setShoes((prevShoes) => prevShoes.slice(0, people));
+    }, [people]);
+
     const total = people * 120 + lanes * 100;
 
-
-
-    useEffect(() => {
-        setShoes((prevShoes) => prevShoes.slice(0, people));
-    }, [people]);
 
     const handleClick = async () => {
         setIsLoading(true);
@@ -34,35 +36,41 @@ function BookingForm() {
             };
 
             const result = await createBooking(bookingData);
+            console.log('RESULT FROM API:', result);
 
-            console.log('Booking success:', result);
+            navigate('/confirmation', { 
+                state: {
+                    ...result.bookingDetails,
+                    date,
+                    time,
+                },
+            });
+            
         }   catch (error) {
-            setError('Booking failed. Please try again.');
-       }   finally {
-            setIsLoading(false);
+            setError('Ajdå, det här gick inte som planerat. Gör ett nytt försök!');
             console.log('Booking failed:', error.message);
+        }   finally {
+            setIsLoading(false);
         }
     };
 
-    // const handleClick = () => {
-    //     console.log({ date, time, people, lanes, shoes });
-    // };
-
-
   return (
     <div>
+        <label>Date</label>
         <input
         type="date"
         value={date} 
         onChange={(e) => setDate(e.target.value)}
         />
 
+        <label>Time</label>
         <input 
         type="time"
         value={time}
         onChange={(e) => setTime(e.target.value)} 
         />
 
+        <label>Number of awsome bowlers</label>
         <input 
         type="number"
         min='1'
@@ -70,6 +78,7 @@ function BookingForm() {
         onChange={(e) => setPeople(Number(e.target.value))} 
         />
 
+        <label>Number of lanes</label>
         <input 
         type="number"
         min='1'
@@ -102,11 +111,11 @@ function BookingForm() {
         {isLoading && <p>Loading...</p>}
 
         <button
-        onClick={handleClick}>STRIIIIIKE!
+        onClick={handleClick}>
+            STRIIIIIKE!
         </button>
-        <p>Temporary total: {total} kr</p>
 
-        {error && <p style={{ color: 'red'}}>{error}</p>}
+        {error && <p className='error-message'>{error}</p>}
     </div>
   )
 }

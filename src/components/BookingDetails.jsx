@@ -1,6 +1,6 @@
 import React from 'react'
 
-function BookingDetails() {
+function BookingDetails({ booking }) {
 
   return (
     <div>
@@ -8,8 +8,9 @@ function BookingDetails() {
         <p>Time: {booking.time}</p>
         <p>People: {booking.people}</p>
         <p>Lanes: {booking.lanes}</p>
-        <p>Total: {booking.total}</p>
-        <p>Booking number: {booking.bookingNumber}</p>
+        <p>Booking number: {booking.bookingId}</p>
+        <p>Total: {booking.price} kr</p>
+        
     </div>
   );
 }
