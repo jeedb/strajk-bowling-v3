@@ -36,7 +36,6 @@ function BookingForm() {
             };
 
             const result = await createBooking(bookingData);
-            console.log('RESULT FROM API:', result);
 
             navigate('/confirmation', { 
                 state: {
@@ -54,14 +53,39 @@ function BookingForm() {
         }
     };
 
+    const formattedDate = date && new Date (date).toLocaleDateString('sv-SE', {
+        day: 'numeric',
+        month: 'short',
+    });
+
   return (
     <div>
-        <label>Date</label>
+        {/* <label>Date</label>
         <input
         type="date"
         value={date} 
         onChange={(e) => setDate(e.target.value)}
-        />
+        /> */}
+
+        <label>Date</label>
+        <input 
+        type="text"
+        value={formattedDate || ''}
+        placeholder='Select date'
+        readOnly
+        onClick={() => document.getElementById('real-date').showPicker()}
+        /> 
+        <input 
+        id="real-date"
+        type='date'
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+        }}
+         />   
 
         <label>Time</label>
         <input 
