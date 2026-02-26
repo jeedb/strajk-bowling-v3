@@ -6,9 +6,262 @@
 }
 
 body {
-    padding: 2rem;
-    background-color: #FFF4F1;
     font-family: 'Bebas Neue';
+    background-color: #FFF4F1;
+}
+
+.booking-form {
+    margin-bottom: 1.5rem;
+}
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.bar {
+    height: 2px;
+    background-color: #ec315a;
+    border-radius: 2px;
+}
+
+.bar1 {
+    width: 22px;
+}
+
+.bar2 {
+    width: 18px;
+}
+
+.bar3 {
+    width: 14px;
+}
+
+.nav-menu {
+    position: fixed;
+    top: 22px;
+    left: 23px;
+    padding: 12px;
+    z-index: 1000;
+
+    padding: 12px;
+    background-color: rgba(236, 49, 90, 0.12);
+    font-size: 24px;
+    border: none;
+    border-radius: 6px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #1c1919;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 35vh;
+    gap: 48px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ec315a;
+    font-size: 48px;
+    letter-spacing: 1.4px;
+    font-family: 'Bebas Neue';
+    text-transform: uppercase;
+}
+
+.booking-container {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem 2rem;
+}
+
+.booking-title {
+    text-align: center;
+    color: #ec315a;
+    font-size: 60px;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 2rem 0 1.5rem 0; 
+}
+
+.section-header h2 {
+    font-size: 24px;
+    color: #441d81;
+    letter-spacing: 0.72px;
+    font-weight: 400;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: #441d81;
+}
+
+.row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+}
+
+.row .input-wrapper {
+    width: 48%;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.hidden-date {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.input-wrapper label {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+
+    font-family: 'Work Sans';
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.36px;
+
+    color: #441d81;
+    background-color: #FFF4F1;
+    padding: 0 6px;
+}
+
+.input-wrapper label.time-label {
+    color: #ec315a;
+}
+
+input, select {
+    font-family: 'Work Sans';
+    height: 60px;
+    line-height: 1;
+    padding: 16px 12px 12px 12px;
+    border-radius: 4px;
+    border: 1px solid #441d81;
+    background-color: #FFF4F1;
+    font-size: 24px;
+    letter-spacing: 0.72px;
+}
+
+.time-input {
+    font-size: 18px;
+    color: #9a9a9a;
+    border: 1px solid #ec315a;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.time-input.has-value {
+    font-size: 24px;
+    color: #ec315a;
+}
+
+input::placeholder {
+    font-size: 18px;
+    color: #9a9a9a;
+}
+
+.display-input, 
+.time-input {
+    width: 100%;
+}
+
+.number-input {
+    color: #9a9a9a;
+    font-size: 18px;
+}
+
+.number-input.has-value {
+    color: black;
+    font-size: 24px;
+}
+
+.number-select {
+    appearance: none;
+    font-size: 18px;
+    color: #9a9a9a;
+}
+
+.number-select.has-value {
+    color: black;
+    font-size: 24px;
+}
+
+.shoes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.shoe-select {
+    height: 60px;
+    padding: 0 16px;
+    font-size: 18px;
+    color: #9a9a9a;
+    background-color: #FFF4F1;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.shoe-select.has-value {
+    font-size: 24px;
+    color: black;
+}
+
+.error-message {
+    color: #ec315a;
+    font-family: 'Work Sans';
+    font-size: 20px;
+    padding: 12px;
+    text-transform: initial;
+    text-align: center;   
+}
+
+.strike-button {
+    width: 100%;
+    background-color: #ec315a;
+    color: white;
+    border: none;
+    padding: 16px;
+    margin-top: 1rem;
+    font-size: 24px;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
 
 .loading-container {
@@ -40,4 +293,13 @@ body {
     font-family: 'work sans';
     letter-spacing: 6px;
     margin-top: 10px;
+}
+
+.loading-message {
+    color: #ec315a;
+    font-family: 'Work Sans';
+    font-size: 20px;
+    padding: 12px;
+    text-transform: initial;
+    text-align: center;   
 }

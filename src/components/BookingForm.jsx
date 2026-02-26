@@ -8,8 +8,8 @@ function BookingForm() {
 
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
-    const [people, setPeople] = useState(1); 
-    const [lanes, setLanes] = useState(1);
+    const [people, setPeople] = useState(0); 
+    const [lanes, setLanes] = useState(0);
     const [shoes, setShoes] = useState([]); //array
 
     const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ function BookingForm() {
         setError('');
 
         if (!date || !time) {
-            setError('Du måste välja datum & tid');
+            setError('Välj datum och tid för att komma vidare');
             setIsLoading(false);
             return;
         }
@@ -35,6 +35,18 @@ function BookingForm() {
         if (shoes.length !== people || shoes.includes('')) {
             setError('Välj skostorlek för alla spelare');
             setIsLoading(false)
+            return;
+        }
+
+        if (people < 1 || lanes < 1) {
+            setError('Du måste välja minst 1 spelare och 1 bana');
+            setIsLoading(false);
+            return;
+        }
+
+        if (people > lanes * 4) {
+            setError('Max 4 spelare/bana!');
+            setIsLoading(false);
             return;
         }
 
@@ -97,7 +109,7 @@ function BookingForm() {
             <input className='display-input'
             type="text"
             value={formattedDate || ''}
-            placeholder='Select date'
+            placeholder={formattedDate ? '' : 'Select date'}
             readOnly
             onClick={() => document.getElementById('real-date').showPicker()}
             /> 
@@ -112,9 +124,9 @@ function BookingForm() {
             </div>
 
         <div className='input-wrapper'>
-            <label>Time</label>
+            <label className='time-label'>Time</label>
 
-            <select className='time-input'
+            <select className={`time-input ${time ? 'has-value' : ''}`}
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
             >
@@ -130,24 +142,41 @@ function BookingForm() {
         
         {/* PLAYERS & LANES */}
 
-        <div className='form-group'>
+        <div className='input-wrapper full-width'>
             <label>Number of awsome bowlers</label>
-            <input 
-            type="number"
-            min='1'
-            value={people}
-            onChange={(e) => setPeople(Number(e.target.value))} 
-            />
-        </div>
 
-        <div className='form-group'>
+            <select
+                className={`number-select ${people === 0 ? '' : 'has-value'}`}
+                value={people}
+                onChange={(e) => setPeople(Number(e.target.value))}
+            >
+                <option value={0}>0</option>
+
+                {Array.from({length: 12 }, (_, i) => i + 1).map((num) => (
+                    <option key={num} value={num}>
+                        {num}
+                    </option>
+                ))}
+            </select>
+            </div>
+            
+
+        <div className='input-wrapper full-width'>
             <label>Number of lanes</label>
-            <input 
-            type="number"
-            min='1'
-            value={lanes}
-            onChange={(e) => setLanes(Number(e.target.value))}
-            />
+
+            <select
+                className={`number-select ${lanes === 0 ? '' : 'has-value'}`}
+                value={lanes}
+                onChange={(e) => setLanes(Number(e.target.value))}
+            >
+                <option value={0}>0</option>
+
+                {Array.from({length: 10 }, (_, i) => i + 1).map((num) => (
+                    <option key={num} value={num}>
+                        {num}
+                    </option>
+                ))}
+            </select>
         </div>
 
 
@@ -161,9 +190,12 @@ function BookingForm() {
 
         <div className='shoes-container'>
             {Array.from({ length: people }).map((_, index) => (
+                <div key={index} className='input-wrapper full-width'>
+
+                    <label>Shoe size / Person {index + 1}</label>
+                
                 <select
-                    key={index}
-                    className='shoe-select'
+                    className={`shoe-select ${shoes[index] ? 'has-value' : ''} `}
                     value={shoes[index] || ''}
                     onChange={(e) => {
                         const newShoes = [...shoes];
@@ -176,20 +208,25 @@ function BookingForm() {
 
                         {Array.from({ length: 18 }, (_, i) => 30 + i).map((size) => (
 
-                    <option key={size} value={size}>{size}</option>
+                    <option key={size} value={size}>
+                        Euro {size}
+                        </option>
                     ))}    
                 </select>
+                </div>
             ))}
         </div>
 
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <p className='loading-message'>Loading...</p>}
+
+        {error && <p className='error-message'>{error}</p>}
 
         <button className='strike-button'
         onClick={handleClick}>
             STRIIIIIIKE!
         </button>
 
-        {error && <p className='error-message'>{error}</p>}
+        
     </div>
   )
 }
