@@ -66,7 +66,7 @@ function BookingForm() {
     })
         .replace('.', '');
 
-    // Tiden visas i dropdown med 30 min intervall. 
+    // Tiden visas som dropdown med 30 min intervall. 
 
     const generateTimes = () => {
         const times = [];
@@ -81,32 +81,42 @@ function BookingForm() {
     const timeOptions = generateTimes();
 
   return (
-    <div>
-        <label>Date</label>
-        <input 
-        type="text"
-        value={formattedDate || ''}
-        placeholder='Select date'
-        readOnly
-        onClick={() => document.getElementById('real-date').showPicker()}
-        /> 
+    <div className='booking-form'>
 
-        <input 
-        id="real-date"
-        type='date'
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        style={{
-            position: 'absolute',
-            opacity: 0,
-            pointerEvents: 'none',
-        }}
-         />   
+        {/* WHEN, WHAT & WHO */}
+        <div className='section-header'>
+            <div className='line'></div>
+            <h2>WHEN, WHAT & WHO</h2>
+            <div className='line'></div>
+        </div>
 
-         <label>Time</label>
-         <select
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
+        <div className='row'>
+            <div className='input-wrapper'>
+            <label>Date</label>
+
+            <input className='display-input'
+            type="text"
+            value={formattedDate || ''}
+            placeholder='Select date'
+            readOnly
+            onClick={() => document.getElementById('real-date').showPicker()}
+            /> 
+
+            <input 
+            id="real-date"
+            type='date'
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className='hidden-date'
+            />   
+            </div>
+
+        <div className='input-wrapper'>
+            <label>Time</label>
+
+            <select className='time-input'
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
             >
                 <option value="">Select time</option>
                 {timeOptions.map((t) => (
@@ -115,72 +125,68 @@ function BookingForm() {
                     </option>
                 ))}
             </select>
-{/* 
-        <label>Time</label>
-        <input 
-        type="text"
-        value={time ? time.replace(':', '.') : ''}
-        placeholder='Select time'
-        readOnly
-        onClick={() => document.getElementById('real-time').showPicker()}
-        />
-
-        <input 
-        id='real-time'
-        type="time"
-        value={time} 
-        step='1800' //30 min = 1800
-        onChange={(e) => setTime(e.target.value)} 
-         style={{
-            position: 'absolute',
-            opacity: 0,
-            pointerEvents: 'none',
-        }}
-        />  */}
+         </div>   
+         </div>
         
-        <label>Number of awsome bowlers</label>
-        <input 
-        type="number"
-        min='1'
-        value={people}
-        onChange={(e) => setPeople(Number(e.target.value))} 
-        />
+        {/* PLAYERS & LANES */}
 
-        <label>Number of lanes</label>
-        <input 
-        type="number"
-        min='1'
-        value={lanes}
-        onChange={(e) => setLanes(Number(e.target.value))}
-        />
+        <div className='form-group'>
+            <label>Number of awsome bowlers</label>
+            <input 
+            type="number"
+            min='1'
+            value={people}
+            onChange={(e) => setPeople(Number(e.target.value))} 
+            />
+        </div>
+
+        <div className='form-group'>
+            <label>Number of lanes</label>
+            <input 
+            type="number"
+            min='1'
+            value={lanes}
+            onChange={(e) => setLanes(Number(e.target.value))}
+            />
+        </div>
 
 
-        {Array.from({ length: people }).map((_, index) => (
-        <select
-            key={index}
-            value={shoes[index] || ''}
-            onChange={(e) => {
-                const newShoes = [...shoes];
-                newShoes[index] = e.target.value;
-                setShoes(newShoes);
-            }}
-            >
-                {/* Dropdown list */}
-            <option value=''>Select size</option> 
+                {/* SHOES */}
 
-                {Array.from({ length: 18 }, (_, i) => 30 + i).map((size) => (
+        <div className='section-header'>
+            <div className='line'></div>
+            <h2>SHOES</h2>
+            <div className='line'></div>
+        </div>
 
-            <option key={size} value={size}>{size}</option>
-            ))}    
-        </select>
+        <div className='shoes-container'>
+            {Array.from({ length: people }).map((_, index) => (
+                <select
+                    key={index}
+                    className='shoe-select'
+                    value={shoes[index] || ''}
+                    onChange={(e) => {
+                        const newShoes = [...shoes];
+                        newShoes[index] = e.target.value;
+                        setShoes(newShoes);
+                    }}
+                    >
+                        {/* Dropdown list */}
+                    <option value=''>Select size</option> 
 
-        ))}
+                        {Array.from({ length: 18 }, (_, i) => 30 + i).map((size) => (
+
+                    <option key={size} value={size}>{size}</option>
+                    ))}    
+                </select>
+            ))}
+        </div>
 
         {isLoading && <p>Loading...</p>}
 
-        <button
+        <button className='strike-button'
         onClick={handleClick}>
-            STRIIIIIKE!
+            STRIIIIIIKE!
         </button>
 
         {error && <p className='error-message'>{error}</p>}

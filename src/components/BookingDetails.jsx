@@ -30,7 +30,7 @@ console.log(booking)
         <p>People: {booking.people}</p>
         <p>Lanes: {booking.lanes}</p>
         <p>Booking number: {booking.bookingId}</p>
-        <p>Total: {booking.price} kr</p>
+        <p>Total: {booking.price} sek</p>
         
     </div>
   );

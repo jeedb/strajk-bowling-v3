@@ -10,11 +10,13 @@ function Nav() {
     <nav className='nav'>
         <button className='nav-menu'
             onClick={() => setIsOpen(!isOpen)}>
-                &#9776;
+                <span className='bar bar1'></span>
+                <span className='bar bar2'></span>
+                <span className='bar bar3'></span>
         </button>
 
         {isOpen && (
-            <div>
+            <div className='nav-links'>
                 <Link to='/' onClick={() => setIsOpen(false)}>
                 Booking
                 </Link>

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Confirmation from './pages/Confirmation'
 import Nav from './components/Nav'
 import Loading from './components/Loading'
+import './App.css';
 
 function App() {
 
